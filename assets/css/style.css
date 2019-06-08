@@ -1,0 +1,10 @@
+.jumbotron {
+    background-color: darkred;
+    color: whitesmoke;
+}
+
+#train-schedule-table th,
+    td {
+      display: inline-block;
+      width: 16.575%;
+    }
