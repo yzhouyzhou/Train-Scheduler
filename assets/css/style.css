@@ -35,7 +35,7 @@ thead {
   }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 600px) {
   #train-schedule-table thead {
     line-height: 36px;
     font-size: 6px;
