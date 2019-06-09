@@ -29,16 +29,18 @@ thead {
   #train-schedule-table thead {
     line-height: 36px;
     font-size: 12px;
+    overflow: auto;
   }
   #train-schedule-table tbody {
     font-size: 15px;
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 560px) {
   #train-schedule-table thead {
     line-height: 36px;
     font-size: 6px;
+    overflow: auto;
   }
   #train-schedule-table tbody {
     font-size: 8px;
