@@ -7,6 +7,8 @@
 #train-schedule-table th, td {
   display: inline-block;
   width: 20%;
+  margin-bottom: 20px;
+  padding: 0;
 }
 
 .card-header {
@@ -26,10 +28,8 @@ thead {
 }
 
 @media screen and (max-width: 780px) {
-  #train-schedule-table th{
+  th {
     font-size: 10px;
-    padding: 10,0;
-    margin: 0;
   }
   #train-schedule-table tbody {
     font-size: 15px;
@@ -37,13 +37,10 @@ thead {
 }
 
 @media screen and (max-width: 450px) {
-  #train-schedule-table thead, th{
-    inline-size: 108px;
+  #train-schedule-table thead, th, td {
     font-size: 6px;
-    padding: 10,0;
-    margin: 0;
   }
   #train-schedule-table tbody {
-    font-size: 8px;
+    font-size: 9px;
   }
 }
