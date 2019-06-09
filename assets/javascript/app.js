@@ -13,7 +13,7 @@ firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
 
-// 2. Button for adding trains
+// Button for adding a new train line
 $("#add-train-btn").on("click", function (event) {
   event.preventDefault();
 
@@ -22,6 +22,13 @@ $("#add-train-btn").on("click", function (event) {
   var destination = $("#destination-input").val().trim();
   var firstTrainTime = $("#first-train-time-input").val().trim();
   var frequency = $("#frequency-input").val().trim();
+  if (trainName.length === 0 ||
+    destination.length === 0 ||
+    firstTrainTime.length === 0 ||
+    frequency.length === 0) {
+    alert("Please fill in all the fields for adding a train line");
+    return;
+  }
 
   // Creates local "temporary" object for holding user input train data
   var newTrain = {
@@ -35,9 +42,9 @@ $("#add-train-btn").on("click", function (event) {
   database.ref().push(newTrain);
 
   // Logs everything to console
-  console.log(newTrain.trainname);
+  console.log(newTrain.trainName);
   console.log(newTrain.destination);
-  console.log(newTrain.firsttraintime);
+  console.log(newTrain.firstTrainTime);
   console.log(newTrain.frequency);
 
   alert("A new train successfully added");
@@ -49,71 +56,67 @@ $("#add-train-btn").on("click", function (event) {
   $("#frequency-input").val("");
 });
 
-// 3. Create Firebase event for adding train to the database and a row in the html when a user adds an entry
+function calcMinutesAway(firstTime, tFrequency) {
+  // To avoid negative diff, the first train is set to start this time of last year 
+  var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+  console.log("firstTimeConverted: " + firstTimeConverted);
+
+  // Current Time
+  var currentTime = moment();
+  console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+  // Difference between the times
+  var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+  console.log("DIFFERENCE IN TIME: " + diffTime);
+
+  // Time apart (remainder)
+  var tRemainder = diffTime % tFrequency;
+  console.log("tRemainder: " + tRemainder);
+
+  // Minute Until Train
+  var tMinutesTillTrain = tFrequency - tRemainder;
+  console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+  return tMinutesTillTrain;
+}
+
+function getNextTrainTime(mAway) {
+  var nextTrain = moment().add(mAway, "minutes");
+  var nextTrainTimeFormat = moment(nextTrain).format("hh:mm a");
+
+  console.log("ARRIVAL TIME: " + nextTrainTimeFormat)
+  return nextTrainTimeFormat;
+}
+
+// add a new row into database trigger the screen refresh
+// reload data from firebase database and display them
+// calculate the next train and minutes away for each line
 database.ref().on("child_added", function (childSnapshot) {
   console.log(childSnapshot.val());
 
   // Store everything into a variable.
   var trainName = childSnapshot.val().train_name;
-  var dest = childSnapshot.val().destination;  
+  var dest = childSnapshot.val().destination;
   var freq = childSnapshot.val().frequency;
   var firstTrainTime = childSnapshot.val().first_train_time;
 
-  // one train Info
+  // new train Info
   console.log(trainName);
   console.log(dest);
   console.log(freq);
   console.log(firstTrainTime);
-  
-  var ms = moment(firstTrainTime,"HH:mm a").diff(moment());
-var d = moment.duration(ms);
-// var s = d.format("hh:mm:ss");
-console.log(ms, d);
-var timeArr = moment().format('x');
-let diff =(timeArr - moment(firstTrainTime,"HH:mm a").format('x')) / (1000* 60);
-diff/1000
-console.log(ms, d, timeArr, diff);
 
-  // first train time
-  // var trainTime = moment(firstTrainTime, "HH:mm a");
-  // var trainTimeHour = parseInt(moment(firstTrainTime, "HH:mm a").format("HH"));
-  // var trainTimeMin = parseInt(moment(firstTrainTime, "HH:mm a").format("mm"));
-  // var totalMin = trainTimeHour * 60 + trainTimeMin;
-  // console.log(trainTime, trainTimeHour, trainTimeMin, totalMin );
-  // Calculate the minutes away
-  // var thisMoment = moment().format("mm");
-
-  // var thisMomentHour = parseInt(moment().format("HH") ) ;
-  // var thisMomentMinute = parseInt(moment().format("mm"));
-  // var momentMin = thisMomentHour * 60 + thisMomentMinute; 
-  // console.log(minutesAway, thisMomentHour,thisMomentMinute, momentMin );
-  // var diff;
-  // if(momentMin < totalMin){
-  //   diff = (momentMin + 24 * 60 - totalMin) % 20;
-  // }
-  // else{
-  //   diff = (momentMin  - totalMin) % 20;
-  // }
-  // console.log(diff);
-  var minutesAway = 20 ;//- diff;
+  var minutesAway = calcMinutesAway(firstTrainTime, freq);
+  var nextTrainTime = getNextTrainTime(minutesAway);
 
   // Create the new row
   var newRow = $("<tr>").append(
     $("<td>").text(trainName),
     $("<td>").text(dest),
     $("<td>").text(freq),
-    $("<td>").text(firstTrainTime),    
+    $("<td>").text(nextTrainTime),
     $("<td>").text(minutesAway)
   );
 
   // Append the new row to the table
   $("#train-schedule-table > tbody").append(newRow);
 });
-
-// Example Time Math
-// -----------------------------------------------------------------------------
-// Assume Employee start date of January 1, 2015
-// Assume current date is March 1, 2016
-
-// We know that this is 15 months.
-// Now we will create code in moment.js to confirm that any attempt we use meets this test case
