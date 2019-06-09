@@ -21,18 +21,26 @@
   border: none;
 }
 
-thead{
+thead {
   font-weight: bold;
 }
 
 @media screen and (max-width: 780px) {
-  #train-schedule-table thead, tbody {
-      font-size: 15px;
+  #train-schedule-table thead {
+    line-height: 36px;
+    font-size: 12px;
+  }
+  #train-schedule-table tbody {
+    font-size: 15px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  #train-schedule-table thead, tbody {
-      font-size: 8px;
+  #train-schedule-table thead {
+    line-height: 36px;
+    font-size: 6px;
+  }
+  #train-schedule-table tbody {
+    font-size: 8px;
   }
 }
