@@ -38,9 +38,9 @@ thead {
 
 @media screen and (max-width: 450px) {
   #train-schedule-table thead, th, td {
-    font-size: 6px;
+    font-size: 7px;
   }
   #train-schedule-table tbody {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
