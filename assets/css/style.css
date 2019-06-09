@@ -1,5 +1,6 @@
 .jumbotron {
-  background-color: darkgreen;;
+  background-color: darkgreen;
+  ;
   color: whitesmoke;
 }
 
@@ -13,9 +14,13 @@
   color: whitesmoke;
 }
 
-#add-train-btn{
+#add-train-btn {
   background-color: darkgreen;
   color: whitesmoke;
   width: 150px;
   border: none;
+}
+
+thead{
+  font-weight: bold;
 }
