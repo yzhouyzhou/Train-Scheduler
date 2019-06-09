@@ -35,27 +35,12 @@ thead {
   }
 }
 
-@media screen and (max-width: 480px) {
-  #train-schedule-table thead {
-    line-height: 36px;
+@media screen and (max-width: 450px) {
+  #train-schedule-table thead, th{
+    height: 108px;
     font-size: 6px;
   }
   #train-schedule-table tbody {
-    font-size: 15px;
-  }
-}
-
-@media screen and (max-width: 360px) {
-  #train-schedule-table thead {
-    line-height: 36px;
-    font-size: 5px;
-  }
-  #train-schedule-table th {
-    overflow: auto;
-    max-width: 50px;
-    width: 100%;
-  }
-  #train-schedule-table tbody {
-    font-size: 8px;
+    font-size: 10px;
   }
 }
