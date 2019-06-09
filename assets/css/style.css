@@ -28,22 +28,32 @@ thead {
 @media screen and (max-width: 780px) {
   #train-schedule-table thead {
     line-height: 36px;
-    font-size: 8px;
+    font-size: 10px;
   }
   #train-schedule-table tbody {
     font-size: 15px;
   }
 }
 
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 720px) {
   #train-schedule-table thead {
     line-height: 36px;
-    font-size: 5px;    
+    font-size: 6px;
+  }
+  #train-schedule-table tbody {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  #train-schedule-table thead {
+    line-height: 36px;
+    font-size: 5px;
   }
   #train-schedule-table th {
     overflow: auto;
-    max-width: 60px;
-    width:100%;
+    max-width: 20px;
+    width: 100%;
   }
   #train-schedule-table tbody {
     font-size: 8px;
